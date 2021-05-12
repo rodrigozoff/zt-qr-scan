@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  <title>ZT QR SCAN - DEMO</title>
+
+  <script type="module" src="/build/zt-scan-qr.esm.js"></script>
+  <script nomodule src="/build/zt-scan-qr.js"></script>
+</head>
+
+<body>
+  <style>
+    hr {
+      margin-top: 32px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    div {
+      margin-bottom: 16px;
+    }
+
+    #flash-toggle {
+      display: none;
+    }
+  </style>
+  <h1>ZT QR SCAN- POC</h1>
+  <div>
+    <b>Device has camera: </b>
+    <span id="cam-has-camera"></span>
+    <br>
+    <div style="text-align: center;">
+      <zt-qr-scan  width="200" height="200"></zt-qr-scan>
+    </div>
+    
+    <br>
+    <label>
+      <input id="show-scan-region" checked type="checkbox">
+      Show scan region
+    </label>
+  </div>
+  <div>
+    <button id="flash-toggle">📸 Flash: <span id="flash-state">off</span></button>
+  </div>
+  <div>
+    <select id="inversion-mode-select">
+      <option value="original">Scan original (dark QR code on bright background)</option>
+      <option value="invert">Scan with inverted colors (bright QR code on dark background)</option>
+      <option value="both">Scan both</option>
+    </select>
+    <br>
+  </div>
+  <b>Detected QR code: </b>
+  <span id="cam-qr-result">None</span>
+  <br>
+  <b>Last detected at: </b>
+  <span id="cam-qr-result-timestamp"></span>
+  <br>
+  <button id="start-button">Start</button>
+  <button id="stop-button">Stop</button>
+  <hr>
+
+  <h1>Scan from File:</h1>
+  <input type="file" id="file-selector">
+  <b>Detected QR code: </b>
+  <span id="file-qr-result">None</span>
+
+</body>
+<script type="module">
+  const qrScan = document.querySelector('zt-qr-scan');
+  qrScan.componentOnReady().then(() =>{
+    
+    qrScan.showCanvas=true;
+    qrScan.showDetectedQR=true;
+
+    const camHasCamera = document.getElementById('cam-has-camera');
+    const camHasFlash = document.getElementById('cam-has-flash');
+    const flashToggle = document.getElementById('flash-toggle');
+    const flashState = document.getElementById('flash-state');
+    const camQrResult = document.getElementById('cam-qr-result');
+    const camQrResultTimestamp = document.getElementById('cam-qr-result-timestamp');
+    const fileSelector = document.getElementById('file-selector');
+    const fileQrResult = document.getElementById('file-qr-result');
+
+    qrScan.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+    qrScan.addEventListener('codeDetected', (r) => {
+      console.log(r);
+      setResult(camQrResult, r);
+    });
+    qrScan.start().then(() => {
+      qrScan.hasFlash().then(hasFlash => {
+        camHasFlash.textContent = hasFlash;
+        if (hasFlash) {
+          flashToggle.style.display = 'inline-block';
+          flashToggle.addEventListener('click', () => {
+            qrScan.toggleFlash().then(() => flashState.textContent = qrScan.isFlashOn() ? 'on' : 'off');
+          });
+        }
+      });
+    });
+
+    function setResult(label, result) {
+      label.textContent = result.detail.data;
+      camQrResultTimestamp.textContent = new Date().toLocaleDateString();
+      label.style.color = 'teal';
+      clearTimeout(label.highlightTimeout);
+      label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
+    }
+
+    // ####### Web Cam Scanning #######
+
+
+    // for debugging
+    window.scanner = qrScan;
+
+    document.getElementById('show-scan-region').addEventListener('change', (e) => {
+      qrScan.showDetectedQR= input.checked;
+    });
+
+    document.getElementById('inversion-mode-select').addEventListener('change', event => {
+      qrScan.setInversionMode(event.target.value);
+    });
+
+    document.getElementById('start-button').addEventListener('click', () => {
+      qrScan.start();
+    });
+
+    document.getElementById('stop-button').addEventListener('click', () => {
+      qrScan.stop();
+    });
+
+    // ####### File Scanning #######
+
+    fileSelector.addEventListener('change', event => {
+      const file = fileSelector.files[0];
+      if (!file) {
+        return;
+      }
+      qrScan.scanImage(file)
+        .then(result => setResult(fileQrResult, result))
+        .catch(e => setResult(fileQrResult, e || 'No QR code found.'));
+    });
+  });
+
+</script>
+
+</html>

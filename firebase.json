@@ -1,0 +1,12 @@
+{
+  "hosting": [ {
+    "target": "zt-qr-scan-poc", 
+    "public": "www",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }]
+  
+}

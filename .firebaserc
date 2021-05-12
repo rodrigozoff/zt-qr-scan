@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "dev-bondit"
+  },
+  "targets": {
+    "dev-bondit": {
+      "hosting": {
+        "zt-qr-scan-poc": [
+          "zt-qr-scan-poc"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "@zoff-tech/zt-qr-scan",
+  "version": "0.0.1",
+  "description": "QR Scan Web Component",
+  "main": "dist/index.cjs.js",
+  "module": "dist/custom-elements/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/custom-elements/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/zt-qr-scan/zt-qr-scan.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@stencil/core": "^2.0.1",
+    "jsqr-es6": "^1.3.1-1"
+  },
+  "license": "MIT",
+  "author": "Rodrigo Zoff <rodrigo@zoff.tech> (https://github.com/rodrigozoff)",
+  "bugs": {
+    "url": "https://github.com/rodrigozoff/zt-qr-scan/issues"
+  },
+  "homepage": "https://github.com/rodrigozoff/zt-qr-scan",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rodrigozoff/zt-qr-scan.git"
+  },
+  "keywords": [
+    "ionic",
+    "stenciljs",
+    "webcomponent",
+    "ionic5",
+    "qr",
+    "scan"
+  ]
+}
