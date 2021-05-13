@@ -11,10 +11,10 @@
 | ---------------- | ------------------- | ----------- | ------------------- | ----------- |
 | `$canvas`        | --                  |             | `HTMLCanvasElement` | `undefined` |
 | `$video`         | --                  |             | `HTMLVideoElement`  | `undefined` |
-| `height`         | `height`            |             | `any`               | `undefined` |
+| `height`         | `height`            |             | `number`            | `undefined` |
 | `showCanvas`     | `show-canvas`       |             | `boolean`           | `false`     |
 | `showDetectedQR` | `show-detected-q-r` |             | `boolean`           | `true`      |
-| `width`          | `width`             |             | `any`               | `undefined` |
+| `width`          | `width`             |             | `number`            | `undefined` |
 
 
 ## Events

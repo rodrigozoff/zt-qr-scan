@@ -5,14 +5,14 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { QRCode } from "jsqr-es6";
+import { QRCode } from "./components/zt-qr-scan/zt-qr-scan-types";
 export namespace Components {
     interface ZtQrScan {
         "$canvas": HTMLCanvasElement;
         "$video": HTMLVideoElement;
         "hasCamera": () => Promise<boolean>;
         "hasFlash": () => Promise<any>;
-        "height": any;
+        "height": number;
         "isFlashOn": () => Promise<boolean>;
         "pause": () => Promise<void>;
         "scanImage": (imageOrFileOrUrl: any, scanRegion?: any, canvas?: any) => Promise<void>;
@@ -25,7 +25,7 @@ export namespace Components {
         "toggleFlash": () => Promise<any>;
         "turnFlashOff": () => Promise<any>;
         "turnFlashOn": () => Promise<any>;
-        "width": any;
+        "width": number;
     }
 }
 declare global {
@@ -43,11 +43,11 @@ declare namespace LocalJSX {
     interface ZtQrScan {
         "$canvas"?: HTMLCanvasElement;
         "$video"?: HTMLVideoElement;
-        "height"?: any;
+        "height"?: number;
         "onCodeDetected"?: (event: CustomEvent<QRCode>) => void;
         "showCanvas"?: boolean;
         "showDetectedQR"?: boolean;
-        "width"?: any;
+        "width"?: number;
     }
     interface IntrinsicElements {
         "zt-qr-scan": ZtQrScan;

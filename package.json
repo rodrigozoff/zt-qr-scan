@@ -1,6 +1,6 @@
 {
   "name": "@zoff-tech/zt-qr-scan",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "QR Scan Web Component",
   "main": "dist/index.cjs.js",
   "module": "dist/custom-elements/index.js",

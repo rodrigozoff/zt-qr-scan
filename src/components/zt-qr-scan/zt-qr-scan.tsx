@@ -1,6 +1,6 @@
 
 import { Component, Host,Watch, h, Method, Prop, Event, EventEmitter } from '@stencil/core';
-import { QRCode } from 'jsqr-es6';
+import {QRCode} from "./zt-qr-scan-types"
 import * as ztScanWorker from './zt-qr-scan.worker'
 
 @Component({
@@ -10,8 +10,8 @@ import * as ztScanWorker from './zt-qr-scan.worker'
 })
 export class ZtQrScan {
 
-  @Prop({ mutable: true, reflect: true }) width: any;
-  @Prop({ mutable: true, reflect: true }) height: any;
+  @Prop({ mutable: true, reflect: true }) width: number;
+  @Prop({ mutable: true, reflect: true }) height: number;
 
   @Event() codeDetected: EventEmitter<QRCode>;
 
