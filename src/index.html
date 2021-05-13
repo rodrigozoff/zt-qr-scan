@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
   <title>ZT QR SCAN - DEMO</title>
 
-  <script type="module" src="/build/zt-scan-qr.esm.js"></script>
-  <script nomodule src="/build/zt-scan-qr.js"></script>
+  <script type="module" src="/build/zt-qr-scan.esm.js"></script>
+  <script nomodule src="/build/zt-qr-scan.js"></script>
 </head>
 
 <body>
@@ -34,11 +34,13 @@
     <b>Device has camera: </b>
     <span id="cam-has-camera"></span>
     <br>
+    <b>Device has flash: </b>
+    <span id="cam-has-flash"></span>
+    <br>
     <div style="text-align: center;">
       <zt-qr-scan  width="200" height="200"></zt-qr-scan>
     </div>
-    
-    <br>
+        <br>
     <label>
       <input id="show-scan-region" checked type="checkbox">
       Show scan region

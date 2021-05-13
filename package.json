@@ -42,5 +42,6 @@
     "ionic5",
     "qr",
     "scan"
-  ]
+  ],
+  "devDependencies": {}
 }
