@@ -1,6 +1,6 @@
 
-import { Component, Host,Watch, h, Method, Prop, Event, EventEmitter } from '@stencil/core';
-import {QRCode} from "./zt-qr-scan-types"
+import { Component, Host,  h, Method, Prop, Event, EventEmitter } from '@stencil/core';
+import { QRCode } from "./zt-qr-scan-types"
 import * as ztScanWorker from './zt-qr-scan.worker'
 
 @Component({
@@ -21,16 +21,8 @@ export class ZtQrScan {
   @Prop({ mutable: true, reflect: true })
   showCanvas: boolean = false;
 
-  @Watch('showCanvas')
-  watchHandler(newValue) {
-    if (newValue)
-      this.$canvas.style.display = "inline";
-    else
-      this.$canvas.style.display = "none";
-  }
-
   @Prop({ mutable: true, reflect: true })
-  showDetectedQR: boolean=true;
+  showDetectedQR: boolean = true;
 
   @Prop()
   $canvas: HTMLCanvasElement;
@@ -253,7 +245,7 @@ export class ZtQrScan {
           this.drawLine(result.location.topRightCorner, result.location.bottomRightCorner, "#FF3B58");
           this.drawLine(result.location.bottomRightCorner, result.location.bottomLeftCorner, "#FF3B58");
           this.drawLine(result.location.bottomLeftCorner, result.location.topLeftCorner, "#FF3B58");
-          await new Promise((resolve:(value:void)=>void)=>{ setTimeout(()=>{resolve()},2000)})
+          await new Promise((resolve: (value: void) => void) => { setTimeout(() => { resolve() }, 2000) })
         }
         this.codeDetected.emit(result);
       }
@@ -378,10 +370,10 @@ export class ZtQrScan {
     const scanRegionY = scanRegion && scanRegion.y ? scanRegion.y : 0;
     const scanRegionWidth = scanRegion && scanRegion.width ? scanRegion.width : image.width || image.videoWidth;
     const scanRegionHeight = scanRegion && scanRegion.height ? scanRegion.height : image.height || image.videoHeight;
-   /* if (!fixedCanvasSize) {
-      canvas.width = scanRegion && scanRegion.downScaledWidth ? scanRegion.downScaledWidth : scanRegionWidth;
-      canvas.height = scanRegion && scanRegion.downScaledHeight ? scanRegion.downScaledHeight : scanRegionHeight;
-    }*/
+    /* if (!fixedCanvasSize) {
+       canvas.width = scanRegion && scanRegion.downScaledWidth ? scanRegion.downScaledWidth : scanRegionWidth;
+       canvas.height = scanRegion && scanRegion.downScaledHeight ? scanRegion.downScaledHeight : scanRegionHeight;
+     }*/
     const context = canvas.getContext('2d', { alpha: false });
     context.imageSmoothingEnabled = false; // gives less blurry images
     context.drawImage(
@@ -447,8 +439,8 @@ export class ZtQrScan {
   render() {
     return (
       <Host>
-        <video ref={(el) => { this.$video = el; }} style={{"display":"none"}} height={200} width={200}></video>
-        <canvas ref={(el) => { this.$canvas = el; }} height={this.height} width={this.width} ></canvas>
+        <video ref={(el) => { this.$video = el; }} style={{ "display": "none" }} height={200} width={200}></video>
+        <canvas ref={(el) => { this.$canvas = el; }} style={{ "display": (this.showCanvas ? "inline" : "none") }} height={this.height} width={this.width} ></canvas>
       </Host>
     );
   }
